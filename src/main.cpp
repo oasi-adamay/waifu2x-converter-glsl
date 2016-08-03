@@ -11,7 +11,23 @@
 #include "modelHandler.hpp"
 #include "convertRoutine.hpp"
 
+
+#ifdef _MSC_VER
+//Lib 
+#pragma comment (lib, "opengl32.lib")
+#pragma comment (lib, "glew32.lib")
+#pragma comment (lib, "glfw3dll.lib")
+#endif
+
+#if 1
+#include "Timer.h"
+#define _TMR_(...)  Timer tmr(__VA_ARGS__)
+#else
+#define _TMR_(...)
+#endif
+
 int main(int argc, char** argv) {
+	_TMR_("Total Time\t");
 
 	// definition of command line arguments
 	TCLAP::CmdLine cmd("waifu2x reimplementation using OpenGL shader", ' ', "1.1.1");
@@ -91,7 +107,7 @@ int main(int argc, char** argv) {
 			std::exit(-1);
 
 		cv::Mat imageYUV;
-		cv::cvtColor(image, imageYUV, cv::COLOR_RGB2YUV);
+		cv::cvtColor(image, imageYUV, cv::COLOR_BGR2YUV);
 		std::vector<cv::Mat> imageSplit;
 		cv::Mat imageY;
 		cv::split(imageYUV, imageSplit);
@@ -100,7 +116,7 @@ int main(int argc, char** argv) {
 		w2xc::convertWithModels(imageY, imageSplit[0], models);
 
 		cv::merge(imageSplit, imageYUV);
-		cv::cvtColor(imageYUV, image, cv::COLOR_YUV2RGB);
+		cv::cvtColor(imageYUV, image, cv::COLOR_YUV2BGR);
 
 	} // noise reduction phase : end
 
@@ -138,7 +154,7 @@ int main(int argc, char** argv) {
 			imageSize.height *= 2;
 			cv::Mat image2xNearest;
 			cv::resize(image, image2xNearest, imageSize, 0, 0, cv::INTER_NEAREST);
-			cv::cvtColor(image2xNearest, imageYUV, cv::COLOR_RGB2YUV);
+			cv::cvtColor(image2xNearest, imageYUV, cv::COLOR_BGR2YUV);
 			std::vector<cv::Mat> imageSplit;
 			cv::Mat imageY;
 			cv::split(imageYUV, imageSplit);
@@ -149,7 +165,7 @@ int main(int argc, char** argv) {
 			imageSplit.clear();
 			cv::Mat image2xBicubic;
 			cv::resize(image,image2xBicubic,imageSize,0,0,cv::INTER_CUBIC);
-			cv::cvtColor(image2xBicubic, imageYUV, cv::COLOR_RGB2YUV);
+			cv::cvtColor(image2xBicubic, imageYUV, cv::COLOR_BGR2YUV);
 			cv::split(imageYUV, imageSplit);
 
 			if(!w2xc::convertWithModels(imageY, imageSplit[0], models)){
@@ -159,7 +175,7 @@ int main(int argc, char** argv) {
 			};
 
 			cv::merge(imageSplit, imageYUV);
-			cv::cvtColor(imageYUV, image, cv::COLOR_YUV2RGB);
+			cv::cvtColor(imageYUV, image, cv::COLOR_YUV2BGR);
 
 		} // 2x scaling : end
 
