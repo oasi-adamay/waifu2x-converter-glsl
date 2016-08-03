@@ -11,6 +11,14 @@
 #include "modelHandler.hpp"
 #include "convertRoutine.hpp"
 
+
+#ifdef _MSC_VER
+//Lib 
+#pragma comment (lib, "opengl32.lib")
+#pragma comment (lib, "glew32.lib")
+#pragma comment (lib, "glfw3dll.lib")
+#endif
+
 int main(int argc, char** argv) {
 
 	// definition of command line arguments
