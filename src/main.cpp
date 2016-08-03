@@ -19,7 +19,15 @@
 #pragma comment (lib, "glfw3dll.lib")
 #endif
 
+#if 1
+#include "Timer.h"
+#define _TMR_(...)  Timer tmr(__VA_ARGS__)
+#else
+#define _TMR_(...)
+#endif
+
 int main(int argc, char** argv) {
+	_TMR_("Total Time\t");
 
 	// definition of command line arguments
 	TCLAP::CmdLine cmd("waifu2x reimplementation using OpenGL shader", ' ', "1.1.1");

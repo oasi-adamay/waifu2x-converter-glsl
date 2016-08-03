@@ -12,6 +12,7 @@
     <ClInclude Include="..\src\modelHandler.hpp" />
     <ClInclude Include="..\src\filterGL.h" />
     <ClInclude Include="..\src\convertRoutine.hpp" />
+    <ClInclude Include="..\src\Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
