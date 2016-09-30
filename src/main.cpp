@@ -95,7 +95,8 @@ int main(int argc, char** argv) {
 	
 	// ===== Noise Reduction Phase =====
 	if (cmdMode.getValue() == "noise" || cmdMode.getValue() == "noise_scale") {
-		
+		_TMR_("Noise Reduction\t:");
+
 		std::cout << "Noise reduction (Lv." << cmdNRLevel.getValue() << ") filtering..." << std::endl;
 
 		std::string modelFileName(cmdModelPath.getValue());
@@ -123,6 +124,7 @@ int main(int argc, char** argv) {
 	// ===== scaling phase =====
 
 	if (cmdMode.getValue() == "scale" || cmdMode.getValue() == "noise_scale") {
+		_TMR_("scaling Phase\t\t:");
 
 		// calculate iteration times of 2x scaling and shrink ratio which will use at last
 		int iterTimesTwiceScaling = static_cast<int>(std::ceil(
